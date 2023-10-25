@@ -1,90 +1,94 @@
-// purpose of  file:
-// hold controll functions which are called when a route is hit in the server.js file
-// these functions are called from the routes folder to prevent the scores.js file 
-//from getting to big
+const Score = require('../models/scoreModel')
+const mongoose = require('mongoose')
 
-const Scores = require('../models/scoresSchema');
-const mongoose = require('mongoose');
-
-// get all scores sorted by score
+// get all scores
 const getScores = async (req, res) => {
-    const scores = await Scores.find({}).sort({score: -1});
-    res.status(200).json({scores});
-};
+  const scores = await Score.find({}).sort({score: -1})
+
+  res.status(200).json(scores)
+}
 
 // get a single score
-const getUserScore = async (req, res) => {
-    const {id} = req.params;
-    
-    // if not a valid id return error
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'Invalid ID'});
-    }
+const getScore = async (req, res) => {
+  const { id } = req.params
 
-    const score = await Scores.findById(id);
-    if (!score) {
-        res.status(400).json({error: 'No score found'});
-    }
-    else{
-        res.status(200).json({score});
-    }
-};
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({error: 'No such score'})
+  }
+
+  const score = await Score.findById(id)
+
+  if (!score) {
+    return res.status(404).json({error: 'No such score'})
+  }
+
+  res.status(200).json(score)
+}
 
 // create a new score
 const createScore = async (req, res) => {
-    const {userID, score: newScore} = req.body;
-    // add doc to db
-    try {
-        const score = await Scores.create({userID, score: newScore});
-        res.status(200).json({score});
-    } catch (error) {
-        res.status(400).json({error: error.message});
-        console.log(error);
-    }
-};
+  const {userID, score:newScore} = req.body
+
+  let emptyFields = []
+  if (!userID) {
+    emptyFields.push('userID')
+  }
+  if (!newScore) {
+    emptyFields.push('score')
+  }
+  if (emptyFields.length > 0) {
+    return res.status(400).json({error: 'Please fill in all the fields', emptyFields})
+  }
+
+  // add to the database
+  try {
+    const score = await Score.create({ userID, score:newScore})
+    res.status(200).json(score)
+  } catch (error) {
+    res.status(400).json({ error: error.message })
+  }
+}
 
 // delete a score
 const deleteScore = async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params
 
-    // if not a valid id return error
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'Invalid ID'});
-    }
-    const score = await Scores.findOneAndDelete({_id: id});
-    if (!score) {
-        res.status(400).json({error: 'No score found'});
-    }
-    else{
-        res.status(200).json({score});
-    }
-};
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({error: 'No such score'})
+  }
+
+  const score = await Score.findOneAndDelete({_id: id})
+
+  if(!score) {
+    return res.status(400).json({error: 'No such score'})
+  }
+
+  res.status(200).json(score)
+}
 
 // update a score
 const updateScore = async (req, res) => {
-    const { id } = req.params;
+  const { id } = req.params
 
-    // if not a valid id return error
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'Invalid ID'});
-    }
-    const score = await Scores.findByIdAndUpdate({_id: id}, {
-        ...req.body
-    });
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({error: 'No such score'})
+  }
 
-    if (!score) {
-        res.status(400).json({error: 'No score found'});
-    }
-    else{
-        res.status(200).json({score});
-    }
-};
+  const score = await Score.findOneAndUpdate({_id: id}, {
+    ...req.body
+  })
 
-// export functions
+  if (!score) {
+    return res.status(400).json({error: 'No such score'})
+  }
+
+  res.status(200).json(score)
+}
+
 module.exports = {
-    getScores,
-    getUserScore,
-    createScore,
-    deleteScore,
-    updateScore
-};
+  getScores,
+  getScore,
+  createScore,
+  deleteScore,
+  updateScore
+}

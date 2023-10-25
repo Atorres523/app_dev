@@ -1,33 +1,27 @@
-// Purpose of file: 
-// dictates what happens when a route is hit
-// this handles post, get, delete, and patch requests
-
-const express = require('express');
-const router = express.Router();
-
-// import controller functions
+const express = require('express')
 const {
+    getScores, 
+    getScore, 
     createScore,
-    getScores,
-    getUserScore,
     deleteScore,
     updateScore
-} = require('../controllers/scoreController');
+} = require('../controllers/scoreController')
 
+const router = express.Router()
 
-// Get all highscores
-router.get('/', getScores);
+// GET all scores
+router.get('/', getScores)
 
-// Get a single highscore
-router.get('/:id', getUserScore);
+// GET a single score
+router.get('/:id', getScore)
 
-// Post a new highscore
-router.post('/', createScore);
+// POST a new score
+router.post('/', createScore)
 
-// Delete a new highscore
-router.delete('/:id', deleteScore);
+// DELETE a score
+router.delete('/:id', deleteScore)
 
-// Update a highscore
-router.patch('/:id', updateScore);
+// UPDATE a score
+router.patch('/:id', updateScore)
 
-module.exports = router;
+module.exports = router
