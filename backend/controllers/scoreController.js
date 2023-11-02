@@ -1,4 +1,4 @@
-const Score = require('../models/scoreModel')
+const Score = require('../models/userModel')
 const mongoose = require('mongoose')
 
 // get all scores
