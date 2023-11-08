@@ -1,33 +1,22 @@
-require('dotenv').config()
+const express = require('express');
+const connectDB = require('./config/db');
 
-const express = require('express')
-const mongoose = require('mongoose')
-const scoreRoutes = require('./routes/scores')
-const userRoutes = require('./routes/user')
+const app = express();
 
-// express app
-const app = express()
+// Connect database
+connectDB();
 
-// middleware
-app.use(express.json())
+// Initialize middleware
+app.use(express.json({ extended: false }));
 
-app.use((req, res, next) => {
-  console.log(req.path, req.method)
-  next()
-})
+app.get('/', (req, res) => res.send('API Running'));
 
-// routes
-app.use('/api/scores', scoreRoutes)
-app.use('/api/user', userRoutes)
+//Define Routes
+app.use('/api/users', require('./routes/api/users'));
+app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/profile', require('./routes/api/profile'));
+app.use('/api/posts', require('./routes/api/posts'));
 
-// connect to db
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => {
-    // listen to port
-    app.listen(process.env.PORT, () => {
-      console.log('listening for requests on port', process.env.PORT)
-    })
-  })
-  .catch((err) => {
-    console.log(err)
-  }) 
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
