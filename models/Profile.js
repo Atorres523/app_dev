@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const ProfileSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
+    ref: 'user',
   },
   breed: {
     type: String,
@@ -26,29 +26,28 @@ const ProfileSchema = new mongoose.Schema({
     type: String,
   },
   temperament: {
-    type: String,
+    type: [String],
   },
   favorite_activities: {
-    type: String,
+    type: [String],
   },
   availability: {
     type: Boolean,
     default: false,
   },
-  health_info: [
+  health_info: 
     {
       allergies: {
-        type: String,
+        type: [String],
       },
       special_needs: {
-        type: String,
+        type: [String],
       },
     },
-  ],
   date: {
     type: Date,
     default: Date.now,
-  },
+  }
 });
 
-module.exports = Profile = mongoose.model("profile", ProfileSchema);
+module.exports = Profile = mongoose.model('profile', ProfileSchema);
