@@ -39,6 +39,7 @@ const ProfileSchema = new mongoose.Schema({
     {
       allergies: {
         type: [String],
+        default: ['No allergies']
       },
       special_needs: {
         type: [String],
