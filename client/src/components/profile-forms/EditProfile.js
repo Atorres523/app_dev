@@ -29,7 +29,7 @@ const EditProfile = ({
 
     useEffect(() => {
         getCurrentProfile();
-      }, []); // Empty dependency array means it only runs on mount
+      }, []);
       
       useEffect(() => {
         if (!loading && profile) {
