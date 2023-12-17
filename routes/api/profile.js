@@ -59,11 +59,11 @@ router.post(
     if (size) profileFields.size = size;
     if (gender) profileFields.gender = gender;
     if (bio) profileFields.bio = bio;
-    if (temperament) {
-      profileFields.temperament = temperament.split(',')  // turns string into an array
+    if (typeof temperament === 'string') {
+      profileFields.temperament = temperament.split(',')
         .map(temperament => temperament.trim());
     }
-    if (favorite_activities) {
+    if (typeof favorite_activities === 'string') {
       profileFields.favorite_activities = favorite_activities.split(',')  
         .map(favorite_activities => favorite_activities.trim());
     }
