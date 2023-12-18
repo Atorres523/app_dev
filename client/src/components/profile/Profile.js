@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
 import ProfileTop from './ProfileTop';
-//import ProfileAbout from './ProfileAbout';
+import ProfileAbout from './ProfileAbout';
 //import ProfileExperience from './ProfileExperience';
 //import ProfileEducation from './ProfileEducation';
 //import ProfileGithub from './ProfileGithub';
@@ -34,6 +34,7 @@ import { getProfileById } from '../../actions/profile';
             )}
             <div class="profile-grid my-1">
                 <ProfileTop profile={profile} />
+                <ProfileAbout profile={profile} />
             </div>
         </Fragment>
       )}
