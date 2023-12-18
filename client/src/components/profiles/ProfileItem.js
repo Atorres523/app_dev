@@ -6,7 +6,7 @@ const ProfileItem = ({ profile }) => {
 
     // Check if profile and profile.user exist
     if (!profile || !profile.user) {
-        return <div>Profile data is not available
+        return <div>
         </div>;
     }
 

@@ -9,10 +9,7 @@ const ProfileTop = ({
     age,
     size,
     gender,
-    bio,
     temperament,
-    favorite_activities,
-    availability
   }
 }) => {
   return (
@@ -24,17 +21,7 @@ const ProfileTop = ({
       {age && <p>Age: {age}</p>}
       {size && <p>Size: {size}</p>}
       {gender && <p>Gender: {gender}</p>}
-      {bio && <p>Bio: {bio}</p>}
-      {temperament && temperament.length > 0 && (
-        <p>Temperament: <span className="custom-temperament">{temperament.join(', ')}</span></p>
-      )}
-      {favorite_activities && favorite_activities.length > 0 && (
-        <p>Favorite Activities: <span className="custom-activities">{favorite_activities.join(', ')}</span></p>
-      )}
-
-      {availability !== undefined && (
-        <p>Availability: {availability ? 'Available' : 'Not Available'}</p>
-      )}
+      
     </div>
   );
 };
