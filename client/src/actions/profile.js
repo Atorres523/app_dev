@@ -2,7 +2,7 @@ import axios from 'axios';
 import { setAlert } from './alertAction';
 
 
-import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR, GET_PROFILES } from './types';
+import { CLEAR_PROFILE, GET_PROFILE, PROFILE_ERROR, GET_PROFILES, UPDATE_PROFILE } from './types';
 
 
 
