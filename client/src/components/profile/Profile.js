@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Spinner from '../layout/Spinner';
-//import ProfileTop from './ProfileTop';
+import ProfileTop from './ProfileTop';
 //import ProfileAbout from './ProfileAbout';
 //import ProfileExperience from './ProfileExperience';
 //import ProfileEducation from './ProfileEducation';
@@ -32,6 +32,9 @@ import { getProfileById } from '../../actions/profile';
                 Edit Profile
               </Link>
             )}
+            <div class="profile-grid my-1">
+                <ProfileTop profile={profile} />
+            </div>
         </Fragment>
       )}
     </section>
