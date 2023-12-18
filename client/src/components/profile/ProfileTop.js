@@ -10,7 +10,6 @@ const ProfileTop = ({
     size,
     gender,
     temperament,
-    availability
   }
 }) => {
   return (
@@ -22,12 +21,7 @@ const ProfileTop = ({
       {age && <p>Age: {age}</p>}
       {size && <p>Size: {size}</p>}
       {gender && <p>Gender: {gender}</p>}
-      {temperament && temperament.length > 0 && (
-        <p>Temperament: <span className="custom-temperament">{temperament.join(', ')}</span></p>
-      )}
-      {availability !== undefined && (
-        <p>Availability: {availability ? 'Available' : 'Not Available'}</p>
-      )}
+      
     </div>
   );
 };

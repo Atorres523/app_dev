@@ -5,6 +5,7 @@ const ProfileAbout = ({
   profile: {
     bio,
     favorite_activities,
+    temperament,
     user: { name }
   }
 }) => (
@@ -16,6 +17,14 @@ const ProfileAbout = ({
         <div className='line' />
       </Fragment>
     )}
+    <h2 className='text-primary'>Temperament</h2>
+      <div className='temperament'>
+        {temperament.map((temp, index) => (
+          <div key={index} className='p-1'>
+            <i className='fas fa-check' /> {temp}
+          </div>
+        ))}
+      </div>
     <h2 className='text-primary'>Favorite Activities</h2>
     <div className='favorite_activities'>
       {favorite_activities.map((favorite_activity, index) => (
